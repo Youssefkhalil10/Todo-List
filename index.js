@@ -27,7 +27,9 @@
   
     function showTasks() {
         let ul = document.getElementById("taskList");
-        ul.innerHTML = "";
+        ul.innerHTML = ""; 
+
+        let fragment = document.createDocumentFragment();
 
         for (let j = 0; j < data.length; j++) {
         if (data[j]) {
@@ -60,16 +62,25 @@
             let deleteBtn= document.createElement('button');
             deleteBtn.className='btn btn-danger';
             deleteBtn.textContent='Delete';
-            deleteBtn.onclick=()=>deleteTask(j);
+            deleteBtn.onclick=()=>{
+                if(deleteBtn.textContent==='Delete'){
+                    deleteBtn.textContent='Confirm';
+                    deleteBtn.classList.remove('btn-danger');
+                    deleteBtn.classList.add('btn-warning');
+                }else
+                    deleteTask(j)};
+                
+                
 
             //append everything
             li.appendChild(checkbox);
             li.appendChild(taskText);
             li.appendChild(toggleBtn);
             li.appendChild(deleteBtn);
-            ul.appendChild(li);
+            fragment.appendChild(li);
         }
         }
+        ul.appendChild(fragment)
     }
   
     function toggle(index) {
@@ -78,6 +89,7 @@
     }
   
     function deleteTask(i) {
+        
         data.splice(i,1) 
         showTasks();
     }
