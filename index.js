@@ -90,7 +90,8 @@
   
     function deleteTask(i) {
         
-        data.splice(i,1) 
+        data.splice(i,1);
+        localStorage.setItem('tasks', JSON.stringify(data));
         showTasks();
     }
   
